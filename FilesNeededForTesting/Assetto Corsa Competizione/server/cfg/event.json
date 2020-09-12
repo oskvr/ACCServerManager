@@ -1,0 +1,26 @@
+{
+  "track": "monza_2019",
+  "preRaceWaitingTimeSeconds": 70,
+  "sessionOverTimeSeconds": 20,
+  "ambientTemp": 25,
+  "cloudLevel": 0.5,
+  "rain": 0.0,
+  "weatherRandomness": 0,
+  "sessions": [
+    {
+      "hourOfDay": 14,
+      "dayOfWeekend": 3,
+      "timeMultiplier": 1,
+      "sessionType": "P",
+      "sessionDurationMinutes": 15
+    },
+    {
+      "hourOfDay": 15,
+      "dayOfWeekend": 4,
+      "timeMultiplier": 1,
+      "sessionType": "R",
+      "sessionDurationMinutes": 15
+    }
+  ],
+  "configVersion": 1
+}

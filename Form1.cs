@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
+﻿using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Threading;
-using Newtonsoft.Json;
+using System.Windows.Forms;
 
 namespace ACCServerManager
 {
@@ -296,11 +291,6 @@ namespace ACCServerManager
 			return false;
 		}
 
-		private void Form1_Leave(object sender, EventArgs e)
-		{
-			Properties.Settings.Default.Save();
-		}
-
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			Properties.Settings.Default.Save();
@@ -329,12 +319,11 @@ namespace ACCServerManager
 
 		private void txtBoxPreRaceWaitingTime_Leave(object sender, EventArgs e)
 		{
-			int preRaceWaitingTime;
 			if (txtBoxPreRaceWaitingTime.Text == "")
 			{
 				errorProvider.SetError(txtBoxPreRaceWaitingTime, "Field can't be empty");
 			}
-			else if (!int.TryParse(txtBoxPreRaceWaitingTime.Text, out preRaceWaitingTime))
+			else if (!int.TryParse(txtBoxPreRaceWaitingTime.Text, out var preRaceWaitingTime))
 			{
 				errorProvider.SetError(txtBoxPreRaceWaitingTime, "Only Integers are allowed");
 
@@ -428,62 +417,6 @@ namespace ACCServerManager
 				SetLightMode();
 				darkMode = false;
 			}
-		}
-	}
-
-
-	public class Rootobject
-	{
-		public string track { get; set; }
-		public int preRaceWaitingTimeSeconds { get; set; }
-		public int sessionOverTimeSeconds { get; set; }
-		public int ambientTemp { get; set; }
-		public float cloudLevel { get; set; }
-		public float rain { get; set; }
-		public int weatherRandomness { get; set; }
-		public Session[] sessions { get; set; }
-		public int configVersion { get; set; }
-
-		public Rootobject(string track, int preRaceWaitingTimeSeconds, int sessionOverTimeSeconds, int ambientTemp, float cloudLevel, float rain, int weatherRandomness, Session[] sessions, int configVersion)
-		{
-			this.track = track;
-			this.preRaceWaitingTimeSeconds = preRaceWaitingTimeSeconds;
-			this.sessionOverTimeSeconds = sessionOverTimeSeconds;
-			this.ambientTemp = ambientTemp;
-			this.cloudLevel = cloudLevel;
-			this.rain = rain;
-			this.weatherRandomness = weatherRandomness;
-			this.sessions = sessions;
-			this.configVersion = configVersion;
-		}
-
-		public Rootobject()
-		{
-
-		}
-	}
-
-	public class Session
-	{
-
-		public int hourOfDay { get; set; }
-		public int dayOfWeekend { get; set; }
-		public int timeMultiplier { get; set; }
-		public string sessionType { get; set; }
-		public int sessionDurationMinutes { get; set; }
-
-		public Session()
-		{
-
-		}
-
-		public Session(int hourOfDay, int dayOfWeekend, int timeMultiplier, string sessionType, int sessionDurationMinutes)
-		{
-			this.hourOfDay = hourOfDay;
-			this.dayOfWeekend = dayOfWeekend;
-			this.timeMultiplier = timeMultiplier;
-			this.sessionType = sessionType;
-			this.sessionDurationMinutes = sessionDurationMinutes;
 		}
 	}
 }

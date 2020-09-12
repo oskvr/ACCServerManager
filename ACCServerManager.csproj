@@ -57,7 +57,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validate.cs" />
+    <Compile Include="Rootobject.cs" />
+    <Compile Include="Session.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -71,6 +72,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="FilesNeededForTesting\Assetto Corsa Competizione\server\cfg\assistRules.json" />
+    <None Include="FilesNeededForTesting\Assetto Corsa Competizione\server\cfg\configuration.json" />
+    <None Include="FilesNeededForTesting\Assetto Corsa Competizione\server\cfg\event.json" />
+    <None Include="FilesNeededForTesting\Assetto Corsa Competizione\server\cfg\settings.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -86,6 +91,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FilesNeededForTesting\Assetto Corsa Competizione\server\accServer.exe" />
+    <Content Include="FilesNeededForTesting\Assetto Corsa Competizione\server\cfg\current\configuration.txt" />
+    <Content Include="FilesNeededForTesting\Assetto Corsa Competizione\server\cfg\current\entrylist.txt" />
+    <Content Include="FilesNeededForTesting\Assetto Corsa Competizione\server\cfg\current\event.txt" />
+    <Content Include="FilesNeededForTesting\Assetto Corsa Competizione\server\cfg\current\eventRules.txt" />
+    <Content Include="FilesNeededForTesting\Assetto Corsa Competizione\server\cfg\current\settings.txt" />
     <Content Include="Pics\ACC_logo.png" />
     <Content Include="Pics\invTracks_barcelona.png" />
     <Content Include="Pics\invTracks_brands_hatch.png" />
@@ -119,7 +130,6 @@
     <Content Include="Pics\Tracks_zolder.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Presets\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
