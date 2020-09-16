@@ -12,7 +12,7 @@ namespace ACCServerManager
 	public partial class Form1 : Form
 	{
 		Event newEvent;
-		string rootPath = Properties.Settings.Default.rootFolderPath;
+		string rootPath;
 		string eventFilePath = "";
 		string exePath = "";
 		bool practiceEnabled;
@@ -27,70 +27,16 @@ namespace ACCServerManager
 
 		private void btnSave_Click(object sender, EventArgs e)
 		{
-			Session practice = new Session();
-			Session qualifying = new Session();
-			if (practiceEnabled)
-			{
-				practice.hourOfDay = int.Parse(txtBoxHourPractice.Text);
-				practice.dayOfWeekend = comboBoxDayPractice.SelectedIndex + 1;
-				practice.timeMultiplier = int.Parse(txtBoxMultiplierPractice.Text);
-				practice.sessionType = "P";
-				practice.sessionDurationMinutes = int.Parse(txtBoxDurationPractice.Text);
-			}
-			if (qualifyingEnabled)
-			{
-				qualifying.hourOfDay = int.Parse(txtBoxHourQualifying.Text);
-				qualifying.dayOfWeekend = comboBoxDayQualifying.SelectedIndex + 1;
-				qualifying.timeMultiplier = int.Parse(txtBoxMultiplierQualifying.Text);
-				qualifying.sessionType = "Q";
-				qualifying.sessionDurationMinutes = int.Parse(txtBoxDurationQualifying.Text);
-			}
-
-
-			Session race = new Session();
-			race.hourOfDay = int.Parse(txtBoxHourRace.Text);
-			race.dayOfWeekend = comboBoxDayRace.SelectedIndex + 1;
-			race.timeMultiplier = int.Parse(txtBoxMultiplierRace.Text);
-			race.sessionType = "R";
-			race.sessionDurationMinutes = int.Parse(txtBoxDurationRace.Text);
-
-			newEvent = new Event();
-			newEvent.track = comboBoxTrack.SelectedItem.ToString();
-			newEvent.preRaceWaitingTimeSeconds = int.Parse(txtBoxPreRaceWaitingTime.Text);
-			newEvent.sessionOverTimeSeconds = int.Parse(txtBoxSessionOverTime.Text);
-			newEvent.ambientTemp = int.Parse(txtBoxAmbientTemp.Text);
-			newEvent.cloudLevel = float.Parse(txtBoxCloudLevel.Text);
-			newEvent.rain = float.Parse(txtBoxRain.Text);
-			newEvent.weatherRandomness = int.Parse(txtBoxWeatherRandomness.Text);
-			if (!practiceEnabled && !qualifyingEnabled)
-			{
-				MessageBox.Show("At least one non-race session must be set up");
-			}
-			else if (!practiceEnabled)
-			{
-				newEvent.sessions = new Session[] { qualifying, race };
-			}
-			else if (!qualifyingEnabled)
-			{
-				newEvent.sessions = new Session[] { practice, race };
-			}
-			else
-			{
-				newEvent.sessions = new Session[] { practice, qualifying, race };
-			}
-			newEvent.configVersion = 1;
-
+			newEvent = SaveFormElementsToObject();
 			string output = JsonConvert.SerializeObject(newEvent, Formatting.Indented);
 			File.WriteAllText(eventFilePath, output);
-
-
 		}
-
 		private void Form1_Load(object sender, EventArgs e)
 		{
+			rootPath = Properties.Settings.Default.rootFolderPath;
 			while (rootPath == "" || !ValidateServerFolder(rootPath))
 			{
-				MessageBox.Show("You need to add your game's root folder");
+				MessageBox.Show("You need to add your Assetto Corsa Competizione root folder");
 				var folderBrowserDialog1 = new FolderBrowserDialog();
 
 				// Show the FolderBrowserDialog.
@@ -101,20 +47,16 @@ namespace ACCServerManager
 					Properties.Settings.Default.rootFolderPath = rootPath;
 				}
 			}
-			eventFilePath = $@"{rootPath}\server\cfg\event.json";
-			exePath = $@"{rootPath}\server\accServer.exe";
-			string eventJson = File.ReadAllText(eventFilePath);
-			newEvent = JsonConvert.DeserializeObject<Event>(eventJson);
-			InitializeFormElements(newEvent);
-			practiceEnabled = checkBoxPractice.Checked;
-			qualifyingEnabled = checkBoxQualifying.Checked;
-
+			eventFilePath = rootPath + @"\server\cfg\event.json";
+			exePath = rootPath + @"\server\accServer.exe";
 			Helper.InitializeStartupJson(eventFilePath);
+			string startupJSON = File.ReadAllText(Helper.presetPath + "startup.json");
+			newEvent = JsonConvert.DeserializeObject<Event>(startupJSON);
+			InitializeFormElements(newEvent);
 		}
 
 		private void btnStartServer_Click(object sender, EventArgs e)
 		{
-			Thread.Sleep(100);
 			Process.Start(exePath);
 		}
 
@@ -163,6 +105,8 @@ namespace ACCServerManager
 			Session practice = new Session();
 			Session qualifying = new Session();
 			Session race = new Session();
+			checkBoxPractice.Checked = false;
+			checkBoxQualifying.Checked = false;
 			foreach (var session in eventObject.sessions)
 			{
 				if (session.sessionType == "P")
@@ -228,6 +172,69 @@ namespace ACCServerManager
 
 		}
 
+
+		/// <summary>
+		/// Saves each form element to respective event object property
+		/// </summary>
+		/// <param name="eventObject"></param>
+		private Event SaveFormElementsToObject()
+		{
+			Event eventObject = new Event();
+			Session practice = new Session();
+			Session qualifying = new Session();
+			if (practiceEnabled)
+			{
+				practice.hourOfDay = int.Parse(txtBoxHourPractice.Text);
+				practice.dayOfWeekend = comboBoxDayPractice.SelectedIndex + 1;
+				practice.timeMultiplier = int.Parse(txtBoxMultiplierPractice.Text);
+				practice.sessionType = "P";
+				practice.sessionDurationMinutes = int.Parse(txtBoxDurationPractice.Text);
+			}
+			if (qualifyingEnabled)
+			{
+				qualifying.hourOfDay = int.Parse(txtBoxHourQualifying.Text);
+				qualifying.dayOfWeekend = comboBoxDayQualifying.SelectedIndex + 1;
+				qualifying.timeMultiplier = int.Parse(txtBoxMultiplierQualifying.Text);
+				qualifying.sessionType = "Q";
+				qualifying.sessionDurationMinutes = int.Parse(txtBoxDurationQualifying.Text);
+			}
+
+
+			Session race = new Session();
+			race.hourOfDay = int.Parse(txtBoxHourRace.Text);
+			race.dayOfWeekend = comboBoxDayRace.SelectedIndex + 1;
+			race.timeMultiplier = int.Parse(txtBoxMultiplierRace.Text);
+			race.sessionType = "R";
+			race.sessionDurationMinutes = int.Parse(txtBoxDurationRace.Text);
+
+			eventObject.track = comboBoxTrack.SelectedItem.ToString();
+			eventObject.preRaceWaitingTimeSeconds = int.Parse(txtBoxPreRaceWaitingTime.Text);
+			eventObject.sessionOverTimeSeconds = int.Parse(txtBoxSessionOverTime.Text);
+			eventObject.ambientTemp = int.Parse(txtBoxAmbientTemp.Text);
+			eventObject.cloudLevel = float.Parse(txtBoxCloudLevel.Text);
+			eventObject.rain = float.Parse(txtBoxRain.Text);
+			eventObject.weatherRandomness = int.Parse(txtBoxWeatherRandomness.Text);
+			if (!practiceEnabled && !qualifyingEnabled)
+			{
+				MessageBox.Show("At least one non-race session must be set up");
+			}
+			else if (!practiceEnabled)
+			{
+				eventObject.sessions = new Session[] { qualifying, race };
+			}
+			else if (!qualifyingEnabled)
+			{
+				eventObject.sessions = new Session[] { practice, race };
+			}
+			else
+			{
+				eventObject.sessions = new Session[] { practice, qualifying, race };
+			}
+			eventObject.configVersion = 1;
+
+			return eventObject;
+		}
+
 		private void comboBoxTrack_Leave(object sender, EventArgs e)
 		{
 			// Track resettas automatiskt till senast valda om värdet är ogiltigt
@@ -253,7 +260,6 @@ namespace ACCServerManager
 			string imagePath = @"C:\Users\oskar\source\repos\ACCServerManager\Pics\Tracks_" + comboBoxTrack.SelectedItem.ToString().Substring(0, comboBoxTrack.SelectedItem.ToString().IndexOf("_2019")) + ".png";
 			pictureBox1.Image = Image.FromFile(imagePath);
 		}
-
 		private bool ValidateServerFolder(string path)
 		{
 			if (path == "")
@@ -275,12 +281,20 @@ namespace ACCServerManager
 				}
 			}
 
-			if (eventFileFound && exeFound)
-			{
-				return true;
-			}
+			return eventFileFound && exeFound;
+		}
 
-			return false;
+		private void LoadFromPreset()
+		{
+			OpenFileDialog openFileDialog1 = new OpenFileDialog();
+			openFileDialog1.InitialDirectory = Helper.presetPath;
+			DialogResult result = openFileDialog1.ShowDialog();
+			if (result == DialogResult.OK)
+			{
+				string presetJSON = File.ReadAllText(openFileDialog1.FileName);
+				newEvent = JsonConvert.DeserializeObject<Event>(presetJSON);
+				InitializeFormElements(newEvent);
+			}
 		}
 
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -291,22 +305,6 @@ namespace ACCServerManager
 		private void btnCancel_Click(object sender, EventArgs e)
 		{
 			Application.Exit();
-		}
-
-		private void txtBoxSessionOverTime_Leave(object sender, EventArgs e)
-		{
-			if (txtBoxPreRaceWaitingTime.Text == "")
-			{
-				errorProvider.SetError(txtBoxSessionOverTime, "Field can't be empty");
-			}
-			else if (!int.TryParse(txtBoxSessionOverTime.Text, out _))
-			{
-				errorProvider.SetError(txtBoxSessionOverTime, "Only Integers are allowed");
-			}
-			else
-			{
-				errorProvider.SetError(txtBoxSessionOverTime, string.Empty);
-			}
 		}
 
 		private void txtBoxPreRaceWaitingTime_Leave(object sender, EventArgs e)
@@ -328,6 +326,23 @@ namespace ACCServerManager
 			{
 				errorProvider.SetError(txtBoxPreRaceWaitingTime, string.Empty);
 			}
+		}
+
+		private void btnSavePreset_Click(object sender, EventArgs e)
+		{
+			Event tempEvent = SaveFormElementsToObject();
+			Helper.SaveToPreset(tempEvent);
+			UpdatePresetListBox();
+		}
+
+		private void UpdatePresetListBox()
+		{
+			// TODO: update the shown presets in the listbox
+		}
+
+		private void btnLoadPreset_Click(object sender, EventArgs e)
+		{
+			LoadFromPreset();
 		}
 	}
 }

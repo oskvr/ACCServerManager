@@ -68,7 +68,12 @@
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.pictureBox2 = new System.Windows.Forms.PictureBox();
-			this.checkBoxRace = new System.Windows.Forms.CheckBox();
+			this.lblRace = new System.Windows.Forms.Label();
+			this.listBoxPresets = new System.Windows.Forms.ListBox();
+			this.btnDeletePreset = new System.Windows.Forms.Button();
+			this.btnLoadPreset = new System.Windows.Forms.Button();
+			this.btnSavePreset = new System.Windows.Forms.Button();
+			this.lblPresets = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
 			this.SuspendLayout();
@@ -115,7 +120,7 @@
 			// btnSave
 			// 
 			this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnSave.Location = new System.Drawing.Point(703, 709);
+			this.btnSave.Location = new System.Drawing.Point(565, 709);
 			this.btnSave.Name = "btnSave";
 			this.btnSave.Size = new System.Drawing.Size(75, 23);
 			this.btnSave.TabIndex = 2;
@@ -126,7 +131,7 @@
 			// btnStartServer
 			// 
 			this.btnStartServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnStartServer.Location = new System.Drawing.Point(570, 709);
+			this.btnStartServer.Location = new System.Drawing.Point(410, 709);
 			this.btnStartServer.Name = "btnStartServer";
 			this.btnStartServer.Size = new System.Drawing.Size(75, 23);
 			this.btnStartServer.TabIndex = 3;
@@ -196,7 +201,6 @@
 			this.txtBoxSessionOverTime.Name = "txtBoxSessionOverTime";
 			this.txtBoxSessionOverTime.Size = new System.Drawing.Size(128, 22);
 			this.txtBoxSessionOverTime.TabIndex = 9;
-			this.txtBoxSessionOverTime.Leave += new System.EventHandler(this.txtBoxSessionOverTime_Leave);
 			// 
 			// txtBoxAmbientTemp
 			// 
@@ -445,7 +449,7 @@
 			// btnCancel
 			// 
 			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnCancel.Location = new System.Drawing.Point(806, 709);
+			this.btnCancel.Location = new System.Drawing.Point(731, 709);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 29;
@@ -463,27 +467,74 @@
 			this.pictureBox2.TabIndex = 30;
 			this.pictureBox2.TabStop = false;
 			// 
-			// checkBoxRace
+			// lblRace
 			// 
-			this.checkBoxRace.AutoCheck = false;
-			this.checkBoxRace.AutoSize = true;
-			this.checkBoxRace.Checked = true;
-			this.checkBoxRace.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.checkBoxRace.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.checkBoxRace.Location = new System.Drawing.Point(600, 462);
-			this.checkBoxRace.Name = "checkBoxRace";
-			this.checkBoxRace.Size = new System.Drawing.Size(62, 22);
-			this.checkBoxRace.TabIndex = 32;
-			this.checkBoxRace.Text = "Race";
-			this.checkBoxRace.UseVisualStyleBackColor = true;
+			this.lblRace.AutoSize = true;
+			this.lblRace.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblRace.Location = new System.Drawing.Point(597, 466);
+			this.lblRace.Name = "lblRace";
+			this.lblRace.Size = new System.Drawing.Size(43, 18);
+			this.lblRace.TabIndex = 31;
+			this.lblRace.Text = "Race";
+			// 
+			// listBoxPresets
+			// 
+			this.listBoxPresets.FormattingEnabled = true;
+			this.listBoxPresets.Location = new System.Drawing.Point(756, 52);
+			this.listBoxPresets.Name = "listBoxPresets";
+			this.listBoxPresets.Size = new System.Drawing.Size(214, 381);
+			this.listBoxPresets.TabIndex = 32;
+			// 
+			// btnDeletePreset
+			// 
+			this.btnDeletePreset.Location = new System.Drawing.Point(895, 439);
+			this.btnDeletePreset.Name = "btnDeletePreset";
+			this.btnDeletePreset.Size = new System.Drawing.Size(75, 23);
+			this.btnDeletePreset.TabIndex = 33;
+			this.btnDeletePreset.Text = "Delete";
+			this.btnDeletePreset.UseVisualStyleBackColor = true;
+			// 
+			// btnLoadPreset
+			// 
+			this.btnLoadPreset.Location = new System.Drawing.Point(802, 439);
+			this.btnLoadPreset.Name = "btnLoadPreset";
+			this.btnLoadPreset.Size = new System.Drawing.Size(75, 23);
+			this.btnLoadPreset.TabIndex = 34;
+			this.btnLoadPreset.Text = "Load";
+			this.btnLoadPreset.UseVisualStyleBackColor = true;
+			this.btnLoadPreset.Click += new System.EventHandler(this.btnLoadPreset_Click);
+			// 
+			// btnSavePreset
+			// 
+			this.btnSavePreset.Location = new System.Drawing.Point(646, 709);
+			this.btnSavePreset.Name = "btnSavePreset";
+			this.btnSavePreset.Size = new System.Drawing.Size(75, 23);
+			this.btnSavePreset.TabIndex = 35;
+			this.btnSavePreset.Text = "Save preset";
+			this.btnSavePreset.UseVisualStyleBackColor = true;
+			this.btnSavePreset.Click += new System.EventHandler(this.btnSavePreset_Click);
+			// 
+			// lblPresets
+			// 
+			this.lblPresets.AutoSize = true;
+			this.lblPresets.Location = new System.Drawing.Point(756, 33);
+			this.lblPresets.Name = "lblPresets";
+			this.lblPresets.Size = new System.Drawing.Size(42, 13);
+			this.lblPresets.TabIndex = 36;
+			this.lblPresets.Text = "Presets";
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.Control;
-			this.ClientSize = new System.Drawing.Size(900, 744);
-			this.Controls.Add(this.checkBoxRace);
+			this.ClientSize = new System.Drawing.Size(987, 744);
+			this.Controls.Add(this.lblPresets);
+			this.Controls.Add(this.btnSavePreset);
+			this.Controls.Add(this.btnLoadPreset);
+			this.Controls.Add(this.btnDeletePreset);
+			this.Controls.Add(this.listBoxPresets);
+			this.Controls.Add(this.lblRace);
 			this.Controls.Add(this.pictureBox2);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.pictureBox1);
@@ -574,7 +625,12 @@
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.PictureBox pictureBox2;
-		private System.Windows.Forms.CheckBox checkBoxRace;
+		private System.Windows.Forms.Label lblRace;
+		private System.Windows.Forms.ListBox listBoxPresets;
+		private System.Windows.Forms.Button btnDeletePreset;
+		private System.Windows.Forms.Button btnLoadPreset;
+		private System.Windows.Forms.Button btnSavePreset;
+		private System.Windows.Forms.Label lblPresets;
 	}
 }
 
