@@ -68,7 +68,6 @@
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.pictureBox2 = new System.Windows.Forms.PictureBox();
-			this.checkBoxDarkMode = new System.Windows.Forms.CheckBox();
 			this.checkBoxRace = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -464,18 +463,6 @@
 			this.pictureBox2.TabIndex = 30;
 			this.pictureBox2.TabStop = false;
 			// 
-			// checkBoxDarkMode
-			// 
-			this.checkBoxDarkMode.AutoSize = true;
-			this.checkBoxDarkMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.checkBoxDarkMode.Location = new System.Drawing.Point(801, 12);
-			this.checkBoxDarkMode.Name = "checkBoxDarkMode";
-			this.checkBoxDarkMode.Size = new System.Drawing.Size(94, 20);
-			this.checkBoxDarkMode.TabIndex = 31;
-			this.checkBoxDarkMode.Text = "Dark mode";
-			this.checkBoxDarkMode.UseVisualStyleBackColor = true;
-			this.checkBoxDarkMode.CheckedChanged += new System.EventHandler(this.checkBoxDarkMode_CheckedChanged);
-			// 
 			// checkBoxRace
 			// 
 			this.checkBoxRace.AutoCheck = false;
@@ -495,9 +482,8 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.Control;
-			this.ClientSize = new System.Drawing.Size(906, 744);
+			this.ClientSize = new System.Drawing.Size(900, 744);
 			this.Controls.Add(this.checkBoxRace);
-			this.Controls.Add(this.checkBoxDarkMode);
 			this.Controls.Add(this.pictureBox2);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.pictureBox1);
@@ -588,7 +574,6 @@
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.PictureBox pictureBox2;
-		private System.Windows.Forms.CheckBox checkBoxDarkMode;
 		private System.Windows.Forms.CheckBox checkBoxRace;
 	}
 }

@@ -11,14 +11,13 @@ namespace ACCServerManager
 {
 	public partial class Form1 : Form
 	{
-		Rootobject newEvent;
+		Event newEvent;
 		string rootPath = Properties.Settings.Default.rootFolderPath;
 		string eventFilePath = "";
 		string exePath = "";
 		bool practiceEnabled;
 		bool qualifyingEnabled;
 		int currentTrackIndex;
-		bool darkMode;
 		ErrorProvider errorProvider = new ErrorProvider();
 		public Form1()
 		{
@@ -55,7 +54,7 @@ namespace ACCServerManager
 			race.sessionType = "R";
 			race.sessionDurationMinutes = int.Parse(txtBoxDurationRace.Text);
 
-			newEvent = new Rootobject();
+			newEvent = new Event();
 			newEvent.track = comboBoxTrack.SelectedItem.ToString();
 			newEvent.preRaceWaitingTimeSeconds = int.Parse(txtBoxPreRaceWaitingTime.Text);
 			newEvent.sessionOverTimeSeconds = int.Parse(txtBoxSessionOverTime.Text);
@@ -105,11 +104,12 @@ namespace ACCServerManager
 			eventFilePath = $@"{rootPath}\server\cfg\event.json";
 			exePath = $@"{rootPath}\server\accServer.exe";
 			string eventJson = File.ReadAllText(eventFilePath);
-			newEvent = JsonConvert.DeserializeObject<Rootobject>(eventJson);
+			newEvent = JsonConvert.DeserializeObject<Event>(eventJson);
 			InitializeFormElements(newEvent);
 			practiceEnabled = checkBoxPractice.Checked;
 			qualifyingEnabled = checkBoxQualifying.Checked;
 
+			Helper.InitializeStartupJson(eventFilePath);
 		}
 
 		private void btnStartServer_Click(object sender, EventArgs e)
@@ -158,7 +158,7 @@ namespace ACCServerManager
 			}
 		}
 
-		private void InitializeFormElements(Rootobject eventObject)
+		private void InitializeFormElements(Event eventObject)
 		{
 			Session practice = new Session();
 			Session qualifying = new Session();
@@ -250,16 +250,8 @@ namespace ACCServerManager
 		private void comboBoxTrack_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			currentTrackIndex = comboBoxTrack.SelectedIndex;
-			if (!darkMode)
-			{
-				string imagePath = @"C:\Users\oskar\source\repos\ACCServerManager\Pics\Tracks_" + comboBoxTrack.SelectedItem.ToString().Substring(0, comboBoxTrack.SelectedItem.ToString().IndexOf("_2019")) + ".png";
-				pictureBox1.Image = Image.FromFile(imagePath);
-			}
-			else
-			{
-				string imagePath = @"C:\Users\oskar\source\repos\ACCServerManager\Pics\invTracks_" + comboBoxTrack.SelectedItem.ToString().Substring(0, comboBoxTrack.SelectedItem.ToString().IndexOf("_2019")) + ".png";
-				pictureBox1.Image = Image.FromFile(imagePath);
-			}
+			string imagePath = @"C:\Users\oskar\source\repos\ACCServerManager\Pics\Tracks_" + comboBoxTrack.SelectedItem.ToString().Substring(0, comboBoxTrack.SelectedItem.ToString().IndexOf("_2019")) + ".png";
+			pictureBox1.Image = Image.FromFile(imagePath);
 		}
 
 		private bool ValidateServerFolder(string path)
@@ -335,87 +327,6 @@ namespace ACCServerManager
 			else
 			{
 				errorProvider.SetError(txtBoxPreRaceWaitingTime, string.Empty);
-			}
-		}
-
-		private void SetDarkMode()
-		{
-			var darkModeBgColor = Color.FromArgb(50, 50, 60);
-			var labelDarkMode = Color.LightGray;
-			var textBoxDarkMode = Color.FromArgb(60, 60, 75);
-			BackColor = darkModeBgColor;
-			pictureBox1.Image = Image.FromFile(@"C:\Users\oskar\source\repos\ACCServerManager\Pics\invTracks_" + comboBoxTrack.SelectedItem.ToString().Substring(0, comboBoxTrack.SelectedItem.ToString().IndexOf("_2019")) + ".png");
-			foreach (var label in Controls.OfType<Label>())
-			{
-				label.ForeColor = labelDarkMode;
-				label.BackColor = darkModeBgColor;
-			}
-			foreach (var textBox in Controls.OfType<TextBox>())
-			{
-				textBox.BackColor = textBoxDarkMode;
-				textBox.ForeColor = labelDarkMode;
-			}
-			foreach (var comboBox in Controls.OfType<ComboBox>())
-			{
-				comboBox.BackColor = textBoxDarkMode;
-				comboBox.ForeColor = labelDarkMode;
-			}
-			foreach (var button in Controls.OfType<Button>())
-			{
-				button.BackColor = textBoxDarkMode;
-				button.ForeColor = labelDarkMode;
-			}
-			foreach (var checkBox in Controls.OfType<CheckBox>())
-			{
-				checkBox.BackColor = darkModeBgColor;
-				checkBox.ForeColor = labelDarkMode;
-			}
-
-		}
-		private void SetLightMode()
-		{
-			BackColor = Color.FromName("Control");
-			pictureBox1.Image = Image.FromFile(@"C:\Users\oskar\source\repos\ACCServerManager\Pics\Tracks_" + comboBoxTrack.SelectedItem.ToString().Substring(0, comboBoxTrack.SelectedItem.ToString().IndexOf("_2019")) + ".png");
-			foreach (var label in Controls.OfType<Label>())
-			{
-				label.ForeColor = Color.FromName("ControlText");
-				label.BackColor = Color.FromName("Control");
-			}
-			foreach (var textBox in Controls.OfType<TextBox>())
-			{
-				textBox.ForeColor = Color.FromName("WindowText");
-				textBox.BackColor = Color.FromName("Window");
-			}
-			foreach (var comboBox in Controls.OfType<ComboBox>())
-			{
-				comboBox.BackColor = Color.FromName("Window");
-				comboBox.ForeColor = Color.FromName("MenuText");
-			}
-			foreach (var button in Controls.OfType<Button>())
-			{
-				button.BackColor = Color.FromName("Control");
-				button.ForeColor = Color.FromName("ControlText");
-			}
-			foreach (var checkBox in Controls.OfType<CheckBox>())
-			{
-				checkBox.ForeColor = Color.FromName("ControlText");
-				checkBox.BackColor = Color.FromName("Control");
-			}
-
-		}
-
-		private void checkBoxDarkMode_CheckedChanged(object sender, EventArgs e)
-		{
-
-			if (!darkMode)
-			{
-				SetDarkMode();
-				darkMode = true;
-			}
-			else
-			{
-				SetLightMode();
-				darkMode = false;
 			}
 		}
 	}

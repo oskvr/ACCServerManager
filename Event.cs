@@ -1,6 +1,6 @@
 ﻿namespace ACCServerManager
 {
-	public class Rootobject
+	public class Event
 	{
 		public string track { get; set; }
 		public int preRaceWaitingTimeSeconds { get; set; }
@@ -12,7 +12,7 @@
 		public Session[] sessions { get; set; }
 		public int configVersion { get; set; }
 
-		public Rootobject()
+		public Event()
 		{
 
 		}
