@@ -74,6 +74,7 @@
 			this.btnLoadPreset = new System.Windows.Forms.Button();
 			this.btnSavePreset = new System.Windows.Forms.Button();
 			this.lblPresets = new System.Windows.Forms.Label();
+			this.lblCurrentTrack = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
 			this.SuspendLayout();
@@ -100,7 +101,7 @@
             "suzuka_2019",
             "zolder_2019",
             "zandvoort_2019"});
-			this.comboBoxTrack.Location = new System.Drawing.Point(44, 66);
+			this.comboBoxTrack.Location = new System.Drawing.Point(31, 46);
 			this.comboBoxTrack.Name = "comboBoxTrack";
 			this.comboBoxTrack.Size = new System.Drawing.Size(128, 24);
 			this.comboBoxTrack.TabIndex = 0;
@@ -111,7 +112,7 @@
 			// 
 			this.lblTrack.AutoSize = true;
 			this.lblTrack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblTrack.Location = new System.Drawing.Point(41, 47);
+			this.lblTrack.Location = new System.Drawing.Point(28, 27);
 			this.lblTrack.Name = "lblTrack";
 			this.lblTrack.Size = new System.Drawing.Size(43, 16);
 			this.lblTrack.TabIndex = 1;
@@ -120,7 +121,7 @@
 			// btnSave
 			// 
 			this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnSave.Location = new System.Drawing.Point(565, 709);
+			this.btnSave.Location = new System.Drawing.Point(716, 709);
 			this.btnSave.Name = "btnSave";
 			this.btnSave.Size = new System.Drawing.Size(75, 23);
 			this.btnSave.TabIndex = 2;
@@ -131,7 +132,7 @@
 			// btnStartServer
 			// 
 			this.btnStartServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnStartServer.Location = new System.Drawing.Point(410, 709);
+			this.btnStartServer.Location = new System.Drawing.Point(598, 709);
 			this.btnStartServer.Name = "btnStartServer";
 			this.btnStartServer.Size = new System.Drawing.Size(75, 23);
 			this.btnStartServer.TabIndex = 3;
@@ -143,7 +144,7 @@
 			// 
 			this.checkBoxQualifying.AutoSize = true;
 			this.checkBoxQualifying.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.checkBoxQualifying.Location = new System.Drawing.Point(437, 462);
+			this.checkBoxQualifying.Location = new System.Drawing.Point(454, 462);
 			this.checkBoxQualifying.Name = "checkBoxQualifying";
 			this.checkBoxQualifying.Size = new System.Drawing.Size(91, 22);
 			this.checkBoxQualifying.TabIndex = 4;
@@ -155,7 +156,7 @@
 			// 
 			this.checkBoxPractice.AutoSize = true;
 			this.checkBoxPractice.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.checkBoxPractice.Location = new System.Drawing.Point(275, 462);
+			this.checkBoxPractice.Location = new System.Drawing.Point(292, 462);
 			this.checkBoxPractice.Name = "checkBoxPractice";
 			this.checkBoxPractice.Size = new System.Drawing.Size(81, 22);
 			this.checkBoxPractice.TabIndex = 5;
@@ -166,7 +167,7 @@
 			// txtBoxPreRaceWaitingTime
 			// 
 			this.txtBoxPreRaceWaitingTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtBoxPreRaceWaitingTime.Location = new System.Drawing.Point(44, 125);
+			this.txtBoxPreRaceWaitingTime.Location = new System.Drawing.Point(31, 105);
 			this.txtBoxPreRaceWaitingTime.Name = "txtBoxPreRaceWaitingTime";
 			this.txtBoxPreRaceWaitingTime.Size = new System.Drawing.Size(128, 22);
 			this.txtBoxPreRaceWaitingTime.TabIndex = 6;
@@ -176,7 +177,7 @@
 			// 
 			this.lblPreRaceWaitingTime.AutoSize = true;
 			this.lblPreRaceWaitingTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblPreRaceWaitingTime.Location = new System.Drawing.Point(41, 106);
+			this.lblPreRaceWaitingTime.Location = new System.Drawing.Point(28, 86);
 			this.lblPreRaceWaitingTime.Name = "lblPreRaceWaitingTime";
 			this.lblPreRaceWaitingTime.Size = new System.Drawing.Size(131, 16);
 			this.lblPreRaceWaitingTime.TabIndex = 7;
@@ -187,7 +188,7 @@
 			// 
 			this.lblSessionOverTime.AutoSize = true;
 			this.lblSessionOverTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblSessionOverTime.Location = new System.Drawing.Point(41, 165);
+			this.lblSessionOverTime.Location = new System.Drawing.Point(28, 145);
 			this.lblSessionOverTime.Name = "lblSessionOverTime";
 			this.lblSessionOverTime.Size = new System.Drawing.Size(115, 16);
 			this.lblSessionOverTime.TabIndex = 8;
@@ -197,7 +198,7 @@
 			// txtBoxSessionOverTime
 			// 
 			this.txtBoxSessionOverTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtBoxSessionOverTime.Location = new System.Drawing.Point(44, 184);
+			this.txtBoxSessionOverTime.Location = new System.Drawing.Point(31, 164);
 			this.txtBoxSessionOverTime.Name = "txtBoxSessionOverTime";
 			this.txtBoxSessionOverTime.Size = new System.Drawing.Size(128, 22);
 			this.txtBoxSessionOverTime.TabIndex = 9;
@@ -205,7 +206,7 @@
 			// txtBoxAmbientTemp
 			// 
 			this.txtBoxAmbientTemp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtBoxAmbientTemp.Location = new System.Drawing.Point(44, 240);
+			this.txtBoxAmbientTemp.Location = new System.Drawing.Point(31, 220);
 			this.txtBoxAmbientTemp.Name = "txtBoxAmbientTemp";
 			this.txtBoxAmbientTemp.Size = new System.Drawing.Size(128, 22);
 			this.txtBoxAmbientTemp.TabIndex = 10;
@@ -214,7 +215,7 @@
 			// 
 			this.lblAmbientTemp.AutoSize = true;
 			this.lblAmbientTemp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblAmbientTemp.Location = new System.Drawing.Point(41, 221);
+			this.lblAmbientTemp.Location = new System.Drawing.Point(28, 201);
 			this.lblAmbientTemp.Name = "lblAmbientTemp";
 			this.lblAmbientTemp.Size = new System.Drawing.Size(90, 16);
 			this.lblAmbientTemp.TabIndex = 11;
@@ -224,7 +225,7 @@
 			// txtBoxCloudLevel
 			// 
 			this.txtBoxCloudLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtBoxCloudLevel.Location = new System.Drawing.Point(44, 299);
+			this.txtBoxCloudLevel.Location = new System.Drawing.Point(31, 279);
 			this.txtBoxCloudLevel.Name = "txtBoxCloudLevel";
 			this.txtBoxCloudLevel.Size = new System.Drawing.Size(128, 22);
 			this.txtBoxCloudLevel.TabIndex = 12;
@@ -234,7 +235,7 @@
 			this.lblCloudLevel.AutoSize = true;
 			this.lblCloudLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblCloudLevel.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.lblCloudLevel.Location = new System.Drawing.Point(41, 280);
+			this.lblCloudLevel.Location = new System.Drawing.Point(28, 260);
 			this.lblCloudLevel.Name = "lblCloudLevel";
 			this.lblCloudLevel.Size = new System.Drawing.Size(75, 16);
 			this.lblCloudLevel.TabIndex = 13;
@@ -244,7 +245,7 @@
 			// txtBoxRain
 			// 
 			this.txtBoxRain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtBoxRain.Location = new System.Drawing.Point(44, 354);
+			this.txtBoxRain.Location = new System.Drawing.Point(31, 334);
 			this.txtBoxRain.Name = "txtBoxRain";
 			this.txtBoxRain.Size = new System.Drawing.Size(128, 22);
 			this.txtBoxRain.TabIndex = 0;
@@ -253,7 +254,7 @@
 			// 
 			this.lblRain.AutoSize = true;
 			this.lblRain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblRain.Location = new System.Drawing.Point(41, 335);
+			this.lblRain.Location = new System.Drawing.Point(28, 315);
 			this.lblRain.Name = "lblRain";
 			this.lblRain.Size = new System.Drawing.Size(36, 16);
 			this.lblRain.TabIndex = 14;
@@ -263,7 +264,7 @@
 			// txtBoxWeatherRandomness
 			// 
 			this.txtBoxWeatherRandomness.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtBoxWeatherRandomness.Location = new System.Drawing.Point(44, 411);
+			this.txtBoxWeatherRandomness.Location = new System.Drawing.Point(31, 391);
 			this.txtBoxWeatherRandomness.Name = "txtBoxWeatherRandomness";
 			this.txtBoxWeatherRandomness.Size = new System.Drawing.Size(128, 22);
 			this.txtBoxWeatherRandomness.TabIndex = 15;
@@ -272,7 +273,7 @@
 			// 
 			this.lblWeatherRandomness.AutoSize = true;
 			this.lblWeatherRandomness.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblWeatherRandomness.Location = new System.Drawing.Point(41, 392);
+			this.lblWeatherRandomness.Location = new System.Drawing.Point(28, 372);
 			this.lblWeatherRandomness.Name = "lblWeatherRandomness";
 			this.lblWeatherRandomness.Size = new System.Drawing.Size(137, 16);
 			this.lblWeatherRandomness.TabIndex = 16;
@@ -291,7 +292,7 @@
             "Tuesday",
             "Wednesday",
             "Thursday"});
-			this.comboBoxDayPractice.Location = new System.Drawing.Point(275, 546);
+			this.comboBoxDayPractice.Location = new System.Drawing.Point(292, 546);
 			this.comboBoxDayPractice.Name = "comboBoxDayPractice";
 			this.comboBoxDayPractice.Size = new System.Drawing.Size(121, 21);
 			this.comboBoxDayPractice.TabIndex = 18;
@@ -307,7 +308,7 @@
             "Tuesday",
             "Wednesday",
             "Thursday"});
-			this.comboBoxDayQualifying.Location = new System.Drawing.Point(437, 546);
+			this.comboBoxDayQualifying.Location = new System.Drawing.Point(454, 546);
 			this.comboBoxDayQualifying.Name = "comboBoxDayQualifying";
 			this.comboBoxDayQualifying.Size = new System.Drawing.Size(121, 21);
 			this.comboBoxDayQualifying.TabIndex = 18;
@@ -323,7 +324,7 @@
             "Tuesday",
             "Wednesday",
             "Thursday"});
-			this.comboBoxDayRace.Location = new System.Drawing.Point(600, 546);
+			this.comboBoxDayRace.Location = new System.Drawing.Point(617, 546);
 			this.comboBoxDayRace.Name = "comboBoxDayRace";
 			this.comboBoxDayRace.Size = new System.Drawing.Size(121, 21);
 			this.comboBoxDayRace.TabIndex = 18;
@@ -332,7 +333,7 @@
 			// 
 			this.lblDayOfWeekend.AutoSize = true;
 			this.lblDayOfWeekend.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblDayOfWeekend.Location = new System.Drawing.Point(158, 547);
+			this.lblDayOfWeekend.Location = new System.Drawing.Point(175, 547);
 			this.lblDayOfWeekend.Name = "lblDayOfWeekend";
 			this.lblDayOfWeekend.Size = new System.Drawing.Size(105, 16);
 			this.lblDayOfWeekend.TabIndex = 19;
@@ -340,7 +341,7 @@
 			// 
 			// txtBoxHourPractice
 			// 
-			this.txtBoxHourPractice.Location = new System.Drawing.Point(275, 503);
+			this.txtBoxHourPractice.Location = new System.Drawing.Point(292, 503);
 			this.txtBoxHourPractice.Name = "txtBoxHourPractice";
 			this.txtBoxHourPractice.Size = new System.Drawing.Size(100, 20);
 			this.txtBoxHourPractice.TabIndex = 20;
@@ -349,7 +350,7 @@
 			// 
 			this.lblHourOfDay.AutoSize = true;
 			this.lblHourOfDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblHourOfDay.Location = new System.Drawing.Point(158, 504);
+			this.lblHourOfDay.Location = new System.Drawing.Point(175, 504);
 			this.lblHourOfDay.Name = "lblHourOfDay";
 			this.lblHourOfDay.Size = new System.Drawing.Size(77, 16);
 			this.lblHourOfDay.TabIndex = 21;
@@ -357,35 +358,35 @@
 			// 
 			// txtBoxHourQualifying
 			// 
-			this.txtBoxHourQualifying.Location = new System.Drawing.Point(437, 503);
+			this.txtBoxHourQualifying.Location = new System.Drawing.Point(454, 503);
 			this.txtBoxHourQualifying.Name = "txtBoxHourQualifying";
 			this.txtBoxHourQualifying.Size = new System.Drawing.Size(100, 20);
 			this.txtBoxHourQualifying.TabIndex = 20;
 			// 
 			// txtBoxHourRace
 			// 
-			this.txtBoxHourRace.Location = new System.Drawing.Point(600, 503);
+			this.txtBoxHourRace.Location = new System.Drawing.Point(617, 503);
 			this.txtBoxHourRace.Name = "txtBoxHourRace";
 			this.txtBoxHourRace.Size = new System.Drawing.Size(100, 20);
 			this.txtBoxHourRace.TabIndex = 20;
 			// 
 			// txtBoxMultiplierPractice
 			// 
-			this.txtBoxMultiplierPractice.Location = new System.Drawing.Point(275, 592);
+			this.txtBoxMultiplierPractice.Location = new System.Drawing.Point(292, 592);
 			this.txtBoxMultiplierPractice.Name = "txtBoxMultiplierPractice";
 			this.txtBoxMultiplierPractice.Size = new System.Drawing.Size(100, 20);
 			this.txtBoxMultiplierPractice.TabIndex = 22;
 			// 
 			// txtBoxMultiplierQualifying
 			// 
-			this.txtBoxMultiplierQualifying.Location = new System.Drawing.Point(437, 592);
+			this.txtBoxMultiplierQualifying.Location = new System.Drawing.Point(454, 592);
 			this.txtBoxMultiplierQualifying.Name = "txtBoxMultiplierQualifying";
 			this.txtBoxMultiplierQualifying.Size = new System.Drawing.Size(100, 20);
 			this.txtBoxMultiplierQualifying.TabIndex = 22;
 			// 
 			// txtBoxMultiplierRace
 			// 
-			this.txtBoxMultiplierRace.Location = new System.Drawing.Point(600, 592);
+			this.txtBoxMultiplierRace.Location = new System.Drawing.Point(617, 592);
 			this.txtBoxMultiplierRace.Name = "txtBoxMultiplierRace";
 			this.txtBoxMultiplierRace.Size = new System.Drawing.Size(100, 20);
 			this.txtBoxMultiplierRace.TabIndex = 22;
@@ -394,7 +395,7 @@
 			// 
 			this.lblTimeMultiplier.AutoSize = true;
 			this.lblTimeMultiplier.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblTimeMultiplier.Location = new System.Drawing.Point(158, 593);
+			this.lblTimeMultiplier.Location = new System.Drawing.Point(175, 593);
 			this.lblTimeMultiplier.Name = "lblTimeMultiplier";
 			this.lblTimeMultiplier.Size = new System.Drawing.Size(95, 16);
 			this.lblTimeMultiplier.TabIndex = 23;
@@ -402,21 +403,21 @@
 			// 
 			// txtBoxDurationPractice
 			// 
-			this.txtBoxDurationPractice.Location = new System.Drawing.Point(275, 641);
+			this.txtBoxDurationPractice.Location = new System.Drawing.Point(292, 641);
 			this.txtBoxDurationPractice.Name = "txtBoxDurationPractice";
 			this.txtBoxDurationPractice.Size = new System.Drawing.Size(100, 20);
 			this.txtBoxDurationPractice.TabIndex = 24;
 			// 
 			// txtBoxDurationQualifying
 			// 
-			this.txtBoxDurationQualifying.Location = new System.Drawing.Point(437, 641);
+			this.txtBoxDurationQualifying.Location = new System.Drawing.Point(454, 641);
 			this.txtBoxDurationQualifying.Name = "txtBoxDurationQualifying";
 			this.txtBoxDurationQualifying.Size = new System.Drawing.Size(100, 20);
 			this.txtBoxDurationQualifying.TabIndex = 24;
 			// 
 			// txtBoxDurationRace
 			// 
-			this.txtBoxDurationRace.Location = new System.Drawing.Point(600, 641);
+			this.txtBoxDurationRace.Location = new System.Drawing.Point(617, 641);
 			this.txtBoxDurationRace.Name = "txtBoxDurationRace";
 			this.txtBoxDurationRace.Size = new System.Drawing.Size(100, 20);
 			this.txtBoxDurationRace.TabIndex = 24;
@@ -425,7 +426,7 @@
 			// 
 			this.lblSessionDuration.AutoSize = true;
 			this.lblSessionDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblSessionDuration.Location = new System.Drawing.Point(158, 642);
+			this.lblSessionDuration.Location = new System.Drawing.Point(175, 642);
 			this.lblSessionDuration.Name = "lblSessionDuration";
 			this.lblSessionDuration.Size = new System.Drawing.Size(108, 16);
 			this.lblSessionDuration.TabIndex = 25;
@@ -439,9 +440,9 @@
 			// 
 			// pictureBox1
 			// 
-			this.pictureBox1.Location = new System.Drawing.Point(275, 50);
+			this.pictureBox1.Location = new System.Drawing.Point(232, 41);
 			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(398, 381);
+			this.pictureBox1.Size = new System.Drawing.Size(362, 330);
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox1.TabIndex = 27;
 			this.pictureBox1.TabStop = false;
@@ -449,7 +450,7 @@
 			// btnCancel
 			// 
 			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnCancel.Location = new System.Drawing.Point(731, 709);
+			this.btnCancel.Location = new System.Drawing.Point(891, 709);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 29;
@@ -460,9 +461,9 @@
 			// pictureBox2
 			// 
 			this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-			this.pictureBox2.Location = new System.Drawing.Point(3, 658);
+			this.pictureBox2.Location = new System.Drawing.Point(3, 661);
 			this.pictureBox2.Name = "pictureBox2";
-			this.pictureBox2.Size = new System.Drawing.Size(149, 84);
+			this.pictureBox2.Size = new System.Drawing.Size(156, 97);
 			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox2.TabIndex = 30;
 			this.pictureBox2.TabStop = false;
@@ -471,7 +472,7 @@
 			// 
 			this.lblRace.AutoSize = true;
 			this.lblRace.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblRace.Location = new System.Drawing.Point(597, 466);
+			this.lblRace.Location = new System.Drawing.Point(614, 466);
 			this.lblRace.Name = "lblRace";
 			this.lblRace.Size = new System.Drawing.Size(43, 18);
 			this.lblRace.TabIndex = 31;
@@ -479,26 +480,31 @@
 			// 
 			// listBoxPresets
 			// 
+			this.listBoxPresets.BackColor = System.Drawing.SystemColors.Control;
+			this.listBoxPresets.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.listBoxPresets.ForeColor = System.Drawing.Color.Black;
 			this.listBoxPresets.FormattingEnabled = true;
-			this.listBoxPresets.Location = new System.Drawing.Point(756, 52);
+			this.listBoxPresets.ItemHeight = 16;
+			this.listBoxPresets.Location = new System.Drawing.Point(752, 52);
 			this.listBoxPresets.Name = "listBoxPresets";
-			this.listBoxPresets.Size = new System.Drawing.Size(214, 381);
+			this.listBoxPresets.Size = new System.Drawing.Size(214, 372);
 			this.listBoxPresets.TabIndex = 32;
 			// 
 			// btnDeletePreset
 			// 
-			this.btnDeletePreset.Location = new System.Drawing.Point(895, 439);
+			this.btnDeletePreset.Location = new System.Drawing.Point(888, 430);
 			this.btnDeletePreset.Name = "btnDeletePreset";
-			this.btnDeletePreset.Size = new System.Drawing.Size(75, 23);
+			this.btnDeletePreset.Size = new System.Drawing.Size(78, 23);
 			this.btnDeletePreset.TabIndex = 33;
 			this.btnDeletePreset.Text = "Delete";
 			this.btnDeletePreset.UseVisualStyleBackColor = true;
+			this.btnDeletePreset.Click += new System.EventHandler(this.btnDeletePreset_Click);
 			// 
 			// btnLoadPreset
 			// 
-			this.btnLoadPreset.Location = new System.Drawing.Point(802, 439);
+			this.btnLoadPreset.Location = new System.Drawing.Point(794, 430);
 			this.btnLoadPreset.Name = "btnLoadPreset";
-			this.btnLoadPreset.Size = new System.Drawing.Size(75, 23);
+			this.btnLoadPreset.Size = new System.Drawing.Size(78, 23);
 			this.btnLoadPreset.TabIndex = 34;
 			this.btnLoadPreset.Text = "Load";
 			this.btnLoadPreset.UseVisualStyleBackColor = true;
@@ -506,7 +512,7 @@
 			// 
 			// btnSavePreset
 			// 
-			this.btnSavePreset.Location = new System.Drawing.Point(646, 709);
+			this.btnSavePreset.Location = new System.Drawing.Point(797, 709);
 			this.btnSavePreset.Name = "btnSavePreset";
 			this.btnSavePreset.Size = new System.Drawing.Size(75, 23);
 			this.btnSavePreset.TabIndex = 35;
@@ -517,11 +523,23 @@
 			// lblPresets
 			// 
 			this.lblPresets.AutoSize = true;
-			this.lblPresets.Location = new System.Drawing.Point(756, 33);
+			this.lblPresets.Location = new System.Drawing.Point(749, 29);
 			this.lblPresets.Name = "lblPresets";
 			this.lblPresets.Size = new System.Drawing.Size(42, 13);
 			this.lblPresets.TabIndex = 36;
 			this.lblPresets.Text = "Presets";
+			// 
+			// lblCurrentTrack
+			// 
+			this.lblCurrentTrack.AutoSize = true;
+			this.lblCurrentTrack.BackColor = System.Drawing.Color.Transparent;
+			this.lblCurrentTrack.Font = new System.Drawing.Font("Microsoft New Tai Lue", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblCurrentTrack.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+			this.lblCurrentTrack.Location = new System.Drawing.Point(221, 374);
+			this.lblCurrentTrack.Name = "lblCurrentTrack";
+			this.lblCurrentTrack.Size = new System.Drawing.Size(235, 63);
+			this.lblCurrentTrack.TabIndex = 37;
+			this.lblCurrentTrack.Text = "SomeText";
 			// 
 			// Form1
 			// 
@@ -529,13 +547,13 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.Control;
 			this.ClientSize = new System.Drawing.Size(987, 744);
+			this.Controls.Add(this.lblCurrentTrack);
 			this.Controls.Add(this.lblPresets);
 			this.Controls.Add(this.btnSavePreset);
 			this.Controls.Add(this.btnLoadPreset);
 			this.Controls.Add(this.btnDeletePreset);
 			this.Controls.Add(this.listBoxPresets);
 			this.Controls.Add(this.lblRace);
-			this.Controls.Add(this.pictureBox2);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.lblSessionDuration);
@@ -572,9 +590,12 @@
 			this.Controls.Add(this.btnSave);
 			this.Controls.Add(this.lblTrack);
 			this.Controls.Add(this.comboBoxTrack);
+			this.Controls.Add(this.pictureBox2);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MaximizeBox = false;
 			this.Name = "Form1";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "ACC Server Manager";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
 			this.Load += new System.EventHandler(this.Form1_Load);
@@ -631,6 +652,7 @@
 		private System.Windows.Forms.Button btnLoadPreset;
 		private System.Windows.Forms.Button btnSavePreset;
 		private System.Windows.Forms.Label lblPresets;
+		private System.Windows.Forms.Label lblCurrentTrack;
 	}
 }
 

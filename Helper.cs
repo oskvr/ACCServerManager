@@ -11,7 +11,7 @@ namespace ACCServerManager
 {
 	class Helper
 	{
-		public static string presetPath = AppDomain.CurrentDomain.BaseDirectory + "Presets";
+		public static string presetPath = AppDomain.CurrentDomain.BaseDirectory + @"Presets\";
 
 		/// <summary>
 		/// Copies the contents of event.json to startup.json

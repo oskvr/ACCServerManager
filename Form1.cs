@@ -11,14 +11,14 @@ namespace ACCServerManager
 {
 	public partial class Form1 : Form
 	{
-		Event newEvent;
-		string rootPath;
-		string eventFilePath = "";
-		string exePath = "";
-		bool practiceEnabled;
-		bool qualifyingEnabled;
-		int currentTrackIndex;
-		ErrorProvider errorProvider = new ErrorProvider();
+		private Event newEvent;
+		private string rootPath;
+		private string eventFilePath;
+		private string exePath = "";
+		private bool practiceEnabled;
+		private bool qualifyingEnabled;
+		private int currentTrackIndex;
+		private ErrorProvider errorProvider = new ErrorProvider();
 		public Form1()
 		{
 			InitializeComponent();
@@ -27,9 +27,7 @@ namespace ACCServerManager
 
 		private void btnSave_Click(object sender, EventArgs e)
 		{
-			newEvent = SaveFormElementsToObject();
-			string output = JsonConvert.SerializeObject(newEvent, Formatting.Indented);
-			File.WriteAllText(eventFilePath, output);
+			SaveEvent();
 		}
 		private void Form1_Load(object sender, EventArgs e)
 		{
@@ -53,11 +51,13 @@ namespace ACCServerManager
 			string startupJSON = File.ReadAllText(Helper.presetPath + "startup.json");
 			newEvent = JsonConvert.DeserializeObject<Event>(startupJSON);
 			InitializeFormElements(newEvent);
+			UpdatePresetListBox();
 		}
 
 		private void btnStartServer_Click(object sender, EventArgs e)
 		{
-			Process.Start(exePath);
+			Process.Start(@"\Games\Assetto Corsa Competizione GT4 Pack\server\accServer.exe\");
+			//Process.Start(exePath);
 		}
 
 		private void checkBoxPractice_CheckedChanged(object sender, EventArgs e)
@@ -99,7 +99,245 @@ namespace ACCServerManager
 				comboBoxDayQualifying.DropDownStyle = ComboBoxStyle.DropDownList;
 			}
 		}
+		/// <summary>
+		/// Saves each form element to its event object property
+		/// </summary>
+		/// <param name="eventObject"></param>
 
+		private void comboBoxTrack_Leave(object sender, EventArgs e)
+		{
+			// Track resettas automatiskt till senast valda om värdet är ogiltigt
+			bool inList = false;
+			foreach (var s in comboBoxTrack.Items)
+			{
+				if (comboBoxTrack.SelectedItem == s)
+				{
+					inList = true;
+					break;
+				}
+			}
+
+			if (!inList)
+			{
+				comboBoxTrack.SelectedIndex = currentTrackIndex;
+			}
+		}
+
+		private void comboBoxTrack_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			currentTrackIndex = comboBoxTrack.SelectedIndex;
+			string imagePath = @"C:\Users\oskar\source\repos\ACCServerManager\Pics\Tracks_" + comboBoxTrack.SelectedItem.ToString().Substring(0, comboBoxTrack.SelectedItem.ToString().IndexOf("_2019")) + ".png";
+			pictureBox1.Image = Image.FromFile(imagePath);
+			UpdateSelectedTrackLabel(comboBoxTrack);
+		}
+
+		// Jag förstår inte varför det inte funkar att kalla på form1.SaveEvent(); från UnsavedChangesForm -
+		// utan att få string error
+		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			var unsavedForm = new UnsavedChangesForm();
+			if (IsEventChanged())
+			{
+				unsavedForm.ShowInTaskbar = false;
+				unsavedForm.ShowDialog(this);
+				e.Cancel = true;
+			}
+			if (unsavedForm.SaveAndClose)
+			{
+				SaveEvent();
+				Close();
+			}
+			else if (unsavedForm.CloseForm)
+			{
+				ForceCloseApplication();
+			}
+		}
+
+		private void btnCancel_Click(object sender, EventArgs e)
+		{
+			ForceCloseApplication();
+		}
+
+		private void txtBoxPreRaceWaitingTime_Leave(object sender, EventArgs e)
+		{
+			if (txtBoxPreRaceWaitingTime.Text == "")
+			{
+				errorProvider.SetError(txtBoxPreRaceWaitingTime, "Field can't be empty");
+			}
+			else if (!int.TryParse(txtBoxPreRaceWaitingTime.Text, out var preRaceWaitingTime))
+			{
+				errorProvider.SetError(txtBoxPreRaceWaitingTime, "Only Integers are allowed");
+
+			}
+			else if (preRaceWaitingTime < 30)
+			{
+				errorProvider.SetError(txtBoxPreRaceWaitingTime, "Pre race waiting time must be at least 30");
+			}
+			else
+			{
+				errorProvider.SetError(txtBoxPreRaceWaitingTime, string.Empty);
+			}
+		}
+
+		private void btnSavePreset_Click(object sender, EventArgs e)
+		{
+			Event currentEvent = SaveFormElementsToObject();
+			Helper.SaveToPreset(currentEvent);
+			UpdatePresetListBox();
+		}
+
+		private void btnLoadPreset_Click(object sender, EventArgs e)
+		{
+			string file = Helper.presetPath + listBoxPresets.Text + ".json";
+			if (File.Exists(file))
+			{
+				string json = File.ReadAllText(file);
+				newEvent = JsonConvert.DeserializeObject<Event>(json);
+				InitializeFormElements(newEvent);
+			}
+		}
+
+		private void btnDeletePreset_Click(object sender, EventArgs e)
+		{
+			string file = Helper.presetPath + listBoxPresets.Text + ".json";
+			if (File.Exists(file))
+			{
+				File.Delete(file);
+				UpdatePresetListBox();
+
+			}
+		}
+
+		#region Helper methods
+		private Event SaveFormElementsToObject()
+		{
+			Event eventObject = new Event();
+			Session practice = new Session();
+			Session qualifying = new Session();
+			if (practiceEnabled)
+			{
+				practice.hourOfDay = int.Parse(txtBoxHourPractice.Text);
+				practice.dayOfWeekend = comboBoxDayPractice.SelectedIndex + 1;
+				practice.timeMultiplier = int.Parse(txtBoxMultiplierPractice.Text);
+				practice.sessionType = "P";
+				practice.sessionDurationMinutes = int.Parse(txtBoxDurationPractice.Text);
+			}
+			if (qualifyingEnabled)
+			{
+				qualifying.hourOfDay = int.Parse(txtBoxHourQualifying.Text);
+				qualifying.dayOfWeekend = comboBoxDayQualifying.SelectedIndex + 1;
+				qualifying.timeMultiplier = int.Parse(txtBoxMultiplierQualifying.Text);
+				qualifying.sessionType = "Q";
+				qualifying.sessionDurationMinutes = int.Parse(txtBoxDurationQualifying.Text);
+			}
+
+
+			Session race = new Session();
+			race.hourOfDay = int.Parse(txtBoxHourRace.Text);
+			race.dayOfWeekend = comboBoxDayRace.SelectedIndex + 1;
+			race.timeMultiplier = int.Parse(txtBoxMultiplierRace.Text);
+			race.sessionType = "R";
+			race.sessionDurationMinutes = int.Parse(txtBoxDurationRace.Text);
+
+			eventObject.track = comboBoxTrack.SelectedItem.ToString();
+			eventObject.preRaceWaitingTimeSeconds = int.Parse(txtBoxPreRaceWaitingTime.Text);
+			eventObject.sessionOverTimeSeconds = int.Parse(txtBoxSessionOverTime.Text);
+			eventObject.ambientTemp = int.Parse(txtBoxAmbientTemp.Text);
+			eventObject.cloudLevel = float.Parse(txtBoxCloudLevel.Text);
+			eventObject.rain = float.Parse(txtBoxRain.Text);
+			eventObject.weatherRandomness = int.Parse(txtBoxWeatherRandomness.Text);
+			if (!practiceEnabled && !qualifyingEnabled)
+			{
+				MessageBox.Show("At least one non-race session must be set up");
+			}
+			else if (!practiceEnabled)
+			{
+				eventObject.sessions = new Session[] { qualifying, race };
+			}
+			else if (!qualifyingEnabled)
+			{
+				eventObject.sessions = new Session[] { practice, race };
+			}
+			else
+			{
+				eventObject.sessions = new Session[] { practice, qualifying, race };
+			}
+			eventObject.configVersion = 1;
+
+			return eventObject;
+		}
+		/// <summary>
+		/// "Force" closes the form by bypassing the FormClosing event handler
+		/// </summary>
+		private void ForceCloseApplication()
+		{
+			FormClosing -= Form1_FormClosing; // This bypasses FormClosing so form can be closed without saving changes
+			Close();
+		}
+		private void UpdateSelectedTrackLabel(ComboBox trackList)
+		{
+			lblCurrentTrack.Text = trackList.Text.Substring(0, trackList.Text.IndexOf("_2019")).Replace('_', ' ').ToUpper();
+		}
+		public void SaveEvent()
+		{
+			newEvent = SaveFormElementsToObject();
+			string output = JsonConvert.SerializeObject(newEvent, Formatting.Indented);
+			File.WriteAllText(eventFilePath, output);
+		}
+		private void UpdatePresetListBox()
+		{
+			listBoxPresets.Items.Clear();
+			DirectoryInfo dinfo = new DirectoryInfo(Helper.presetPath);
+			FileInfo[] Files = dinfo.GetFiles("*");
+			foreach (FileInfo file in Files)
+			{
+				listBoxPresets.Items.Add(file.Name.Substring(0, file.Name.IndexOf(".json")));
+			}
+		}
+		private bool IsEventChanged()
+		{
+			Event currentEvent = SaveFormElementsToObject();
+			string form = JsonConvert.SerializeObject(currentEvent, Formatting.Indented);
+			string eventFile = File.ReadAllText(eventFilePath);
+
+			return form != eventFile;
+		}
+		private bool ValidateServerFolder(string path)
+		{
+			if (path == "")
+			{
+				return false;
+			}
+			bool exeFound = false;
+			bool eventFileFound = false;
+			string[] files = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
+			foreach (var file in files)
+			{
+				if (file.EndsWith("event.json"))
+				{
+					eventFileFound = true;
+				}
+				if (file.EndsWith("accServer.exe"))
+				{
+					exeFound = true;
+				}
+			}
+
+			return eventFileFound && exeFound;
+		}
+
+		private void LoadFromPreset()
+		{
+			OpenFileDialog openFileDialog1 = new OpenFileDialog();
+			openFileDialog1.InitialDirectory = Helper.presetPath;
+			DialogResult result = openFileDialog1.ShowDialog();
+			if (result == DialogResult.OK)
+			{
+				string presetJSON = File.ReadAllText(openFileDialog1.FileName);
+				newEvent = JsonConvert.DeserializeObject<Event>(presetJSON);
+				InitializeFormElements(newEvent);
+			}
+		}
 		private void InitializeFormElements(Event eventObject)
 		{
 			Session practice = new Session();
@@ -172,178 +410,7 @@ namespace ACCServerManager
 
 		}
 
-
-		/// <summary>
-		/// Saves each form element to respective event object property
-		/// </summary>
-		/// <param name="eventObject"></param>
-		private Event SaveFormElementsToObject()
-		{
-			Event eventObject = new Event();
-			Session practice = new Session();
-			Session qualifying = new Session();
-			if (practiceEnabled)
-			{
-				practice.hourOfDay = int.Parse(txtBoxHourPractice.Text);
-				practice.dayOfWeekend = comboBoxDayPractice.SelectedIndex + 1;
-				practice.timeMultiplier = int.Parse(txtBoxMultiplierPractice.Text);
-				practice.sessionType = "P";
-				practice.sessionDurationMinutes = int.Parse(txtBoxDurationPractice.Text);
-			}
-			if (qualifyingEnabled)
-			{
-				qualifying.hourOfDay = int.Parse(txtBoxHourQualifying.Text);
-				qualifying.dayOfWeekend = comboBoxDayQualifying.SelectedIndex + 1;
-				qualifying.timeMultiplier = int.Parse(txtBoxMultiplierQualifying.Text);
-				qualifying.sessionType = "Q";
-				qualifying.sessionDurationMinutes = int.Parse(txtBoxDurationQualifying.Text);
-			}
-
-
-			Session race = new Session();
-			race.hourOfDay = int.Parse(txtBoxHourRace.Text);
-			race.dayOfWeekend = comboBoxDayRace.SelectedIndex + 1;
-			race.timeMultiplier = int.Parse(txtBoxMultiplierRace.Text);
-			race.sessionType = "R";
-			race.sessionDurationMinutes = int.Parse(txtBoxDurationRace.Text);
-
-			eventObject.track = comboBoxTrack.SelectedItem.ToString();
-			eventObject.preRaceWaitingTimeSeconds = int.Parse(txtBoxPreRaceWaitingTime.Text);
-			eventObject.sessionOverTimeSeconds = int.Parse(txtBoxSessionOverTime.Text);
-			eventObject.ambientTemp = int.Parse(txtBoxAmbientTemp.Text);
-			eventObject.cloudLevel = float.Parse(txtBoxCloudLevel.Text);
-			eventObject.rain = float.Parse(txtBoxRain.Text);
-			eventObject.weatherRandomness = int.Parse(txtBoxWeatherRandomness.Text);
-			if (!practiceEnabled && !qualifyingEnabled)
-			{
-				MessageBox.Show("At least one non-race session must be set up");
-			}
-			else if (!practiceEnabled)
-			{
-				eventObject.sessions = new Session[] { qualifying, race };
-			}
-			else if (!qualifyingEnabled)
-			{
-				eventObject.sessions = new Session[] { practice, race };
-			}
-			else
-			{
-				eventObject.sessions = new Session[] { practice, qualifying, race };
-			}
-			eventObject.configVersion = 1;
-
-			return eventObject;
-		}
-
-		private void comboBoxTrack_Leave(object sender, EventArgs e)
-		{
-			// Track resettas automatiskt till senast valda om värdet är ogiltigt
-			bool inList = false;
-			foreach (var s in comboBoxTrack.Items)
-			{
-				if (comboBoxTrack.SelectedItem == s)
-				{
-					inList = true;
-					break;
-				}
-			}
-
-			if (!inList)
-			{
-				comboBoxTrack.SelectedIndex = currentTrackIndex;
-			}
-		}
-
-		private void comboBoxTrack_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			currentTrackIndex = comboBoxTrack.SelectedIndex;
-			string imagePath = @"C:\Users\oskar\source\repos\ACCServerManager\Pics\Tracks_" + comboBoxTrack.SelectedItem.ToString().Substring(0, comboBoxTrack.SelectedItem.ToString().IndexOf("_2019")) + ".png";
-			pictureBox1.Image = Image.FromFile(imagePath);
-		}
-		private bool ValidateServerFolder(string path)
-		{
-			if (path == "")
-			{
-				return false;
-			}
-			bool exeFound = false;
-			bool eventFileFound = false;
-			string[] files = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
-			foreach (var file in files)
-			{
-				if (file.EndsWith("event.json"))
-				{
-					eventFileFound = true;
-				}
-				if (file.EndsWith("accServer.exe"))
-				{
-					exeFound = true;
-				}
-			}
-
-			return eventFileFound && exeFound;
-		}
-
-		private void LoadFromPreset()
-		{
-			OpenFileDialog openFileDialog1 = new OpenFileDialog();
-			openFileDialog1.InitialDirectory = Helper.presetPath;
-			DialogResult result = openFileDialog1.ShowDialog();
-			if (result == DialogResult.OK)
-			{
-				string presetJSON = File.ReadAllText(openFileDialog1.FileName);
-				newEvent = JsonConvert.DeserializeObject<Event>(presetJSON);
-				InitializeFormElements(newEvent);
-			}
-		}
-
-		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			Properties.Settings.Default.Save();
-		}
-
-		private void btnCancel_Click(object sender, EventArgs e)
-		{
-			Application.Exit();
-		}
-
-		private void txtBoxPreRaceWaitingTime_Leave(object sender, EventArgs e)
-		{
-			if (txtBoxPreRaceWaitingTime.Text == "")
-			{
-				errorProvider.SetError(txtBoxPreRaceWaitingTime, "Field can't be empty");
-			}
-			else if (!int.TryParse(txtBoxPreRaceWaitingTime.Text, out var preRaceWaitingTime))
-			{
-				errorProvider.SetError(txtBoxPreRaceWaitingTime, "Only Integers are allowed");
-
-			}
-			else if (preRaceWaitingTime < 30)
-			{
-				errorProvider.SetError(txtBoxPreRaceWaitingTime, "Pre race waiting time must be at least 30");
-			}
-			else
-			{
-				errorProvider.SetError(txtBoxPreRaceWaitingTime, string.Empty);
-			}
-		}
-
-		private void btnSavePreset_Click(object sender, EventArgs e)
-		{
-			Event tempEvent = SaveFormElementsToObject();
-			Helper.SaveToPreset(tempEvent);
-			UpdatePresetListBox();
-		}
-
-		private void UpdatePresetListBox()
-		{
-			// TODO: update the shown presets in the listbox
-		}
-
-		private void btnLoadPreset_Click(object sender, EventArgs e)
-		{
-			LoadFromPreset();
-		}
+		#endregion
 	}
 }
 
